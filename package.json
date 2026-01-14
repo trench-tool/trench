@@ -1,0 +1,42 @@
+{
+  "name": "trench",
+  "version": "1.0.0",
+  "description": "AI-powered social media reply generator. Authentic AI replies.",
+  "type": "module",
+  "bin": {
+    "trench": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "build": "bun build src/index.ts --compile --outfile dist/trench",
+    "build:all": "bun run build:mac && bun run build:linux && bun run build:windows",
+    "build:mac": "bun build src/index.ts --compile --target=bun-darwin-arm64 --outfile dist/trench-darwin-arm64",
+    "build:linux": "bun build src/index.ts --compile --target=bun-linux-x64 --outfile dist/trench-linux-x64",
+    "build:windows": "bun build src/index.ts --compile --target=bun-windows-x64 --outfile dist/trench-windows-x64.exe",
+    "test": "bun test",
+    "test:watch": "bun test --watch"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "commander": "^12.1.0",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "keywords": [
+    "ai",
+    "twitter",
+    "linkedin",
+    "social-media",
+    "cli",
+    "anthropic",
+    "claude"
+  ],
+  "author": "ClaudeWhisperer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claudewhisperer/trench"
+  }
+}
