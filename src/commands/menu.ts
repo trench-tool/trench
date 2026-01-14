@@ -110,21 +110,34 @@ export async function menuCommand(): Promise<void> {
 }
 
 async function getKeypress(): Promise<string> {
-  return new Promise((resolve) => {
-    const stdin = process.stdin;
-    stdin.setRawMode(true);
-    stdin.resume();
-    stdin.setEncoding('utf8');
+  const stdin = process.stdin;
 
-    const onData = (key: string) => {
-      stdin.setRawMode(false);
-      stdin.pause();
-      stdin.removeListener('data', onData);
-      resolve(key);
-    };
+  // Check if setRawMode is available (not available in compiled Bun binaries)
+  if (typeof stdin.setRawMode === 'function') {
+    return new Promise((resolve) => {
+      stdin.setRawMode(true);
+      stdin.resume();
+      stdin.setEncoding('utf8');
 
-    stdin.once('data', onData);
-  });
+      const onData = (key: string) => {
+        stdin.setRawMode(false);
+        stdin.pause();
+        stdin.removeListener('data', onData);
+        resolve(key);
+      };
+
+      stdin.once('data', onData);
+    });
+  } else {
+    // Fallback: use readline (requires Enter key)
+    const rl = createInterface({ input: stdin, output: process.stdout });
+    return new Promise((resolve) => {
+      rl.question('', (answer) => {
+        rl.close();
+        resolve(answer.trim() || 'q');
+      });
+    });
+  }
 }
 
 async function handleReply(): Promise<void> {
