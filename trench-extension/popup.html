@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 260px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+      color: #e5e7eb;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .tagline {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #9ca3af;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      background: #1e293b;
+      color: #e5e7eb;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    select:hover { border-color: #f97316; }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .toggle-label {
+      font-size: 13px;
+      color: #d1d5db;
+    }
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #374151;
+      border-radius: 24px;
+      transition: 0.3s;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+    input:checked + .toggle-slider {
+      background: #f97316;
+    }
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    button:hover { transform: scale(1.02); }
+    .status {
+      font-size: 11px;
+      color: #10b981;
+      text-align: center;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+    .footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #374151;
+      font-size: 10px;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Trench</h1>
+  <p class="tagline">Authentic AI replies</p>
+
+  <label>Active Persona</label>
+  <select id="persona-select">
+    <option value="whisperer">Whisperer (Technical)</option>
+    <option value="authentic">Authentic (Authentic)</option>
+    <option value="provocateur">Provocateur (Edgy)</option>
+    <option value="professional">Professional (Safe)</option>
+  </select>
+
+  <div class="toggle-row">
+    <span class="toggle-label">Streaming mode</span>
+    <label class="toggle">
+      <input type="checkbox" id="streaming-toggle" checked>
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
+
+  <button id="save-btn">Save Settings</button>
+  <p class="status" id="status-msg"></p>
+
+  <div class="footer">
+    Ensure trench serve is running
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
